@@ -20,6 +20,10 @@
   "homepage": "https://github.com/andrey21/desktop_electron_app#readme",
   "dependencies": {
     "electron": "^8.2.1",
-    "nodemon": "^1.19.2"
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "nodemon": "^1.19.2",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
   }
 }
