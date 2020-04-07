@@ -1,0 +1,25 @@
+{
+  "name": "desktop_chat_app",
+  "version": "1.0.0",
+  "description": "desktop chat p2p using electron and node js",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "watch": "nodemon --exec 'electron .'",
+    "reset": "git reset --hard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrey21/desktop_electron_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrey21/desktop_electron_app/issues"
+  },
+  "homepage": "https://github.com/andrey21/desktop_electron_app#readme",
+  "dependencies": {
+    "electron": "^8.2.1",
+    "nodemon": "^1.19.2"
+  }
+}
