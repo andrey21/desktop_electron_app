@@ -2,18 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel='stylesheet' href='src/style/style.css' type='text/css'/>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>Desktop chat</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
+    <div class="onlineUsersContainer">
+        <div class="userInfo">Welcome <label id="myName">Guest</label> !!</div>
+        <div><ul id="onlineUsers"></ul></div>
+    </div>
+    <div class="chatContainer">
+      <ul id="messages"></ul>
+      <span id="notifyTyping"></span>
+      <form id="form" action="" onsubmit="return submitfunction();" > 
+          <input type="hidden" id="user" value="" /><input id="m" autocomplete="off" onkeyup="notifyTyping();" placeholder="Type yor message here.." /><input type="submit" id="button" value="Send"/> 
+      </form>
+    </div>
     <script src="./renderer.js"></script>
+    <script src="./src/chat.js"></script>
   </body>
 </html>
