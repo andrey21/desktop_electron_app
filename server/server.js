@@ -1,11 +1,24 @@
-// let express = require('express');
-// let app = express();
-// var http = require('http').Server(app);
-// var io = require('socket.io')(server);
-// var path = require('path');
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+// var express = require('express');
+// // let app = express();
+// // var http = require('http').Server(app);
+// // var io = require('socket.io')(server);
+// // var path = require('path');
+// var app = require('express')();
+// var http = require('http').createServer(app);
+// var io = require('socket.io')(http);
+const express = require('express');
+
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+exports.server = {
+  run(port) {
+    server.listen(port, () => {
+      console.log('Server listening at port %d', port);
+    });
+  },
+};
 
 var onlineUsers = [];
 
@@ -49,6 +62,6 @@ io.on('connection', (socket) => {
 
 });
 
-http.listen(3000, () => {
-    console.log('server is running on port 3000');
-})
+// http.listen(3010, () => {
+//     console.log('server is running on port 3000');
+// })

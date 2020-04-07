@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io.connect('http://localhost:3010');
 var allChatMessages = [];
 var chatNotificationCount = [];
 var myUser = {};
