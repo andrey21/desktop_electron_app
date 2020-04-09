@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
+    "node": "node server",
+    "start:all": "npm run node && npm start",
     "watch": "nodemon --exec 'electron .'",
     "reset": "git reset --hard"
   },
@@ -20,6 +22,7 @@
   "homepage": "https://github.com/andrey21/desktop_electron_app#readme",
   "dependencies": {
     "electron": "^8.2.1",
+    "electron-prompt": "^1.5.1",
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "jquery": "^3.4.1",

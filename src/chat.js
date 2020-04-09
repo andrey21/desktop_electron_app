@@ -1,3 +1,8 @@
+const {remote} = require('electron')
+const dialog   = remote.dialog
+const prompt = require('electron-prompt');
+
+let WIN      = remote.getCurrentWindow();
 var socket = io.connect('http://localhost:3010');
 var allChatMessages = [];
 var chatNotificationCount = [];
@@ -11,8 +16,23 @@ $(document).ready(function(){
 
 // Function to ask user to supply his/her name before entering a chatbox
 function loginMe() {
-  // var person = prompt("Please enter your name:", "Sandip Salunke");
-  var person = 'andrey';
+  
+
+prompt({
+    title: 'Please enter your name:',
+    label: 'User name',
+    value: '',
+    inputAttrs: {
+        type: 'input'
+    },
+    type: 'input'
+}, WIN)
+.then((r) => {
+    if(r === null) {
+        console.log('user cancelled');
+    } else {
+        console.log('result', r);
+        var person = r;
   if (/([^\s])/.test(person) && person != null && person != "") {
     //$('#user').val(person);
     socket.emit('newUser', person);
@@ -20,6 +40,20 @@ function loginMe() {
   } else {
     location.reload();
   }
+    }
+})
+.catch(console.error);
+  // let options = {}
+  // options.buttons = ["&Yes","&No","&Cancel"]
+  // options.message = "Please enter your name:"
+  // dialog.showMessageBox(WIN, options, (res, checked) => {
+  //   console.log(res)
+  //   console.log(checked)
+  //   if (res === 0)
+  //    WIN.destroy()
+  //  })
+  // var person = prompt("Please enter your name:", "Sandip Salunke");
+  
 }
 
 // Function to be called when sent a message from chatbox
