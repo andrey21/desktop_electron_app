@@ -1,11 +1,3 @@
-// var express = require('express');
-// // let app = express();
-// // var http = require('http').Server(app);
-// // var io = require('socket.io')(server);
-// // var path = require('path');
-// var app = require('express')();
-// var http = require('http').createServer(app);
-// var io = require('socket.io')(http);
 const express = require('express');
 
 const app = express();
@@ -20,48 +12,38 @@ exports.server = {
   },
 };
 
-var onlineUsers = [];
+var activeUsers = [];
 
-// Initialize appication with route / (that means root of the application)
 app.get('/', (req, res) => {
   app.use(express.static(path.join(__dirname)));
   res.sendFile(path.join(__dirname, '../chat-application', 'index.html'));
 });
 
-// Register events on socket connection
 io.on('connection', (socket) => { 
 
-  // Listen to chantMessage event sent by client and emit a chatMessage to the client
-  socket.on('chatMessage', (message) => {
-    io.to(message.receiver).emit('chatMessage', message);
+  socket.on('report', (message) => {
+    io.to(message.receiver).emit('report', message);
   });
 
-  // Listen to notifyTyping event sent by client and emit a notifyTyping to the client
-  socket.on('notifyTyping', (sender, receiver) => {
-    io.to(receiver.id).emit('notifyTyping', sender, receiver);
+  socket.on('notice', (sender, receiver) => {
+    io.to(receiver.id).emit('notice', sender, receiver);
   });
 
-  // Listen to newUser event sent by client and emit a newUser to the client with new list of online users
   socket.on('newUser', (user) => {
     var newUser = {id: socket.id, name: user};
-    onlineUsers.push(newUser);
+    activeUsers.push(newUser);
     io.to(socket.id).emit('newUser', newUser);
-    io.emit('onlineUsers', onlineUsers);
+    io.emit('activeUsers', activeUsers);
   });
 
-  // Listen to disconnect event sent by client and emit userIsDisconnected and onlineUsers (with new list of online users) to the client 
   socket.on('disconnect', () => {
-    onlineUsers.forEach((user, index) => {
+    activeUsers.forEach((user, index) => {
       if(user.id === socket.id) {
-        onlineUsers.splice(index, 1);
-        io.emit('userIsDisconnected', socket.id);
-        io.emit('onlineUsers', onlineUsers);
+        activeUsers.splice(index, 1);
+        io.emit('logOutUser', socket.id);
+        io.emit('activeUsers', activeUsers);
       }
     });
   });
 
 });
-
-// http.listen(3010, () => {
-//     console.log('server is running on port 3000');
-// })

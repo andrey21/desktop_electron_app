@@ -5,22 +5,20 @@
     <link rel='stylesheet' href='src/style/style.css' type='text/css'/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'"> -->
-
-    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' http://xxxx 'unsafe-inline' 'unsafe-eval'; ">
-    <meta http-equiv="X-Content-Security-Policy" content="script-src 'self' http://xxxx 'unsafe-inline' 'unsafe-eval'; "> -->
-    <title>Desktop chat</title>
+    <title>Чат додаток</title>
   </head>
   <body>
     <div class="onlineUsersContainer">
-        <div class="userInfo">Welcome <label id="myName">Guest</label> !!</div>
-        <div><ul id="onlineUsers"></ul></div>
+        <div class="userInfo">Ласкаво просимо <label id="myName">гість</label> !!</div>
+        <div><ul id="activeUsers"></ul></div>
     </div>
     <div class="chatContainer">
       <ul id="messages"></ul>
-      <span id="notifyTyping"></span>
+      <span id="notice"></span>
       <form id="form" action="" onsubmit="return submitfunction();" > 
-          <input type="hidden" id="user" value="" /><input id="m" autocomplete="off" onkeyup="notifyTyping();" placeholder="Type yor message here.." /><input type="submit" id="button" value="Send"/> 
+          <input type="hidden" id="user" value="" />
+          <input id="m" autocomplete="off" onkeyup="notice();" placeholder="Type yor message here.." />
+          <input type="submit" id="button" value="Send"/> 
       </form>
     </div>
     <script src="./renderer.js"></script>
